@@ -1,7 +1,5 @@
-/* GET 'home' page */
-
 /* GET 'Add review' page */
-module.exports.addReview = function(req, res) {
+module.exports.home = function(req, res) {
     res.render('index', {
         title: 'Bitacora'       
     });

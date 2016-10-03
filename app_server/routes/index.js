@@ -5,12 +5,12 @@ var router = express.Router();
 
 var ctrlLocations = require('../controllers/locations');
 var crtlOthers = require('../controllers/others');
+var ctrlPages = require('../controllers/pages');
 
 /*Locations pages*/
 
-router.get('/', ctrlLocations.homeList);
-router.get('/location', ctrlLocations.locationInfo);
-router.get('/location/review/new', ctrlLocations.addReview);
+router.get('/', ctrlPages.home);
+
 
 /* Other pages */
 router.get('/about', crtlOthers.about);
