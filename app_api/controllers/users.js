@@ -47,3 +47,14 @@ module.exports.getAllUsers = function (req, res){
   return;
 
 }
+
+module.exports.userCreate = function(req. res){
+	Loc.create({
+		name: req.body.name, 
+		avatar: req.body.avatar,
+		nick: req.body.nick
+	},function(err, user){
+		if(err){
+		}
+	});
+};
