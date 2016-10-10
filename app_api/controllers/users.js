@@ -54,9 +54,20 @@ module.exports.userCreate = function(req. res){
 	Loc.create({
 		name: req.body.name, 
 		avatar: req.body.avatar,
-		nick: req.body.nick
+		nick: req.body.nick,
+    password: req.body.password,
+    description: req.body.description
 	},function(err, user){
-		if(err){
-		}
+		if (err){
+      sendJsonResponse(res, 400, err);
+    }else{
+      sendJsonResponse(res, 201, user);
+    }
 	});
+};
+
+
+var sendJsonResponse = function(res, status, content){
+  res.status(status);
+  res.json(content);
 };
