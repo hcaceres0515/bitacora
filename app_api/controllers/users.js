@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Loc = mongoose.model('User');
 
-var sendJSONresponse = function(res, status, content) {
+var sendJsonresponse = function(res, status, content) {
   res.status(status);
   res.json(content);
 };
@@ -31,17 +31,17 @@ module.exports.getAllUsers = function (req, res){
     .find()
     .exec(function(err, location) {
       if (!location) {
-        sendJSONresponse(res, 404, {
+        sendJsonresponse(res, 404, {
           "message": "locationid not found"
         });
         return;
       } else if (err) {
         console.log(err);
-        sendJSONresponse(res, 404, err);
+        sendJsonresponse(res, 404, err);
         return;
       }
       console.log(location);
-      sendJSONresponse(res, 200, location);
+      sendJsonresponse(res, 200, location);
     });
   
   return;
@@ -59,9 +59,9 @@ module.exports.createUser = function(req, res){
     description: req.body.description
 	},function(err, user){
 		if (err){
-      sendJsonResponse(res, 400, err);
+      sendJsonresponse(res, 400, err);
     }else{
-      sendJsonResponse(res, 201, user);
+      sendJsonresponse(res, 201, user);
     }
 	});
 };
@@ -69,7 +69,7 @@ module.exports.createUser = function(req, res){
 //FUnciton to update a User
 module.exports.updateUser = function (req, res) { 
   if (!req.params.userid) {
-    sendJsonResponse(res, 404, {
+    sendJsonresponse(res, 404, {
       "message" : "Not found, userid is required"});
     return;
   }
@@ -79,13 +79,13 @@ module.exports.updateUser = function (req, res) {
     .exec(
       function(err, user){
         if (!user) {
-          sendJsonResponse(res, 404, {
+          sendJsonresponse(res, 404, {
             "message" : "userid not found"
           });
           return;
         }
         else if (err) {
-          sendJsonResponse(res, 200, err);
+          sendJsonresponse(res, 200, err);
           return;
         }
         user.name = req.body.name;
@@ -95,10 +95,10 @@ module.exports.updateUser = function (req, res) {
         user.description = req.body.description;
         user.save(function(err, user){
           if (err) {
-            sendJsonResponse(res, 404, err);
+            sendJsonresponse(res, 404, err);
           }
           else{
-            sendJsonResponse(res, 200, user);
+            sendJsonresponse(res, 200, user);
           }
         });       
       }
@@ -112,18 +112,18 @@ module.exports.getUser = function (req, res) {
       .findById(req.params.userid)
       .exec(function(err, user){
         if (!user) {
-          sendJsonResponse(res, 404, {
+          sendJsonresponse(res, 404, {
             "message": "userid not found"
           });
         }
         else if (err) {
-          sendJsonResponse(res, 404, err);
+          sendJsonresponse(res, 404, err);
           return;
         } 
-        sendJsonResponse(res, 200, user);
+        sendJsonresponse(res, 200, user);
     }); 
   } else {
-    sendJsonResponse(res, 404, {
+    sendJsonresponse(res, 404, {
       "message": "No userid in request"
     });
   } 
@@ -138,15 +138,15 @@ module.exports.deleteUser = function (req, res) {
       .exec(
         function(err, user){
           if (err) {
-            sendJsonResponse(res, 404, err);
+            sendJsonresponse(res, 404, err);
             return;
           }
-          sendJsonResponse(res, 204, null);
+          sendJsonresponse(res, 204, null);
         }
     );
   }
   else{
-    sendJsonResponse(res, 404, {
+    sendJsonresponse(res, 404, {
       "message": "No userid"
     });
   }
