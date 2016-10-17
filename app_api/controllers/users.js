@@ -50,7 +50,7 @@ module.exports.getAllUsers = function (req, res){
 
 
 //Function for add User
-module.exports.userCreate = function(req. res){
+module.exports.createUser = function(req. res){
 	Loc.create({
 		name: req.body.name, 
 		avatar: req.body.avatar,
