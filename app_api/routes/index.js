@@ -3,6 +3,7 @@ var router = express.Router();
 var ctrlUsers = require('../controllers/users');
 
 router.get('/getUsers', ctrlUsers.getAllUsers);
+router.post('/createUser', ctrlUsers.createUser);
 
 /*router.get('/getlocations', ctrlLocations.getAllLocations);
 router.get('/locations', ctrlLocations.locationsListByDistance);
