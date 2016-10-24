@@ -25,14 +25,4 @@ router.get('/', homepageController);
 
 //router.get('/', ctrlMain.index);
 
-/*registro y login*/
-router.get('/', ctrlRegLog.index);
-router.get('/login', ctrlRegLog.login);
-router.get('/register', ctrlRegLog.register);
-
-// POST
-//router.post('/register', ctrlRegLog.registerUser);
-
-
 module.exports = router;
-
