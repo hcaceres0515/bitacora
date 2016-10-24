@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Loc = mongoose.model('User');
 
-var sendJSONresponse = function(res, status, content) {
+var sendJsonResponse = function(res, status, content) {
   res.status(status);
   res.json(content);
 };
@@ -14,14 +14,14 @@ module.exports.locationsCreate = function(req, res) {
       .exec(
         function(err, user) {
           if (err) {
-            sendJSONresponse(res, 400, err);
+            sendJsonResponse(res, 400, err);
           } else {
             doAddLocation01(req, res, user);
           }
         }
     );
   } else {
-    sendJSONresponse(res, 404, {
+    sendJsonResponse(res, 404, {
       "message": "Not found, userid required"
     });
   }
@@ -29,7 +29,7 @@ module.exports.locationsCreate = function(req, res) {
 
 var doAddLocation01 = function(req, res, user) {
   if (!user) {
-    sendJSONresponse(res, 404, "userid not found");
+    sendJsonResponse(res, 404, "userid not found");
   } else {
 
     if (req.params.routeid) {
@@ -43,14 +43,14 @@ var doAddLocation01 = function(req, res, user) {
 			}
     	console.log("position: ", position); 
       if(position == -1){
-      	sendJSONresponse(res, 404, "routeid not found");
+      	sendJsonResponse(res, 404, "routeid not found");
       } 
       else{
       	doAddLocation02(req, res, user, position);
       }
     } 
     else {
-      sendJSONresponse(res, 404, {
+      sendJsonResponse(res, 404, {
         "message": "Not found, routeid required"
       });
     }
@@ -70,11 +70,58 @@ var doAddLocation02 = function(req, res, user, position) {
   user.save(function(err, user) {
     var thisLocation;
     if (err) {
-      sendJSONresponse(res, 400, err);
+      sendJsonResponse(res, 400, err);
     } else {
 
     	thisLocation = user.routes[position].locations[user.routes.length - 1];
-      sendJSONresponse(res, 201, thisLocation);
+      sendJsonResponse(res, 201, thisLocation);
     }
   });
+};
+
+module.exports.deleteLocation = function (req, res) { 
+  if (!req.params.userid) {
+    sendJsonResponse(res, 404, {
+      "message": "userid is required"
+    });
+    return;
+  }
+  if (!req.params.routeid) {
+    sendJsonResponse(res, 404, {
+      "message": "routeid is required"
+    });
+    return;
+  }
+  if (!req.params.locationid) {
+    sendJsonResponse(res, 404, {
+      "message": "locationid is required"
+    });
+    return;
+  }
+  Loc.update(
+    { 
+      "_id": req.params.userid 
+    },
+    { 
+      "$pull": { 
+        // "routes": { 
+        //   "_id": req.params.routeid 
+        // },
+        "routes": {
+          "locations": {
+            "_id": req.params.locationid 
+          }  
+        } 
+      } 
+    },
+    function(err, user) { 
+        if(err){
+          sendJsonResponse(res, 404, err);
+          return;
+        } 
+        else {
+          sendJsonResponse(res, 204, null);
+        }
+    }
+  );
 };

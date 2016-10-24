@@ -1,29 +1,29 @@
 var mongoose = require('mongoose');
 var Loc = mongoose.model('User');
 
-var sendJsonresponse = function(res, status, content) {
+var sendJsonResponse = function(res, status, content) {
   res.status(status);
   res.json(content);
 };
 
-var theEarth = (function() {
-  var earthRadius = 6371; // km, miles is 3959
+// var theEarth = (function() {
+//   var earthRadius = 6371; // km, miles is 3959
 
-  var getDistanceFromRads = function(rads) {
-    return parseFloat(rads * earthRadius);
-  };
+//   var getDistanceFromRads = function(rads) {
+//     return parseFloat(rads * earthRadius);
+//   };
 
-  var getRadsFromDistance = function(distance) {
-    return parseFloat(distance / earthRadius);
-  };
+//   var getRadsFromDistance = function(distance) {
+//     return parseFloat(distance / earthRadius);
+//   };
 
-  return {
-    getDistanceFromRads: getDistanceFromRads,
-    getRadsFromDistance: getRadsFromDistance
-  };
-})();
+//   return {
+//     getDistanceFromRads: getDistanceFromRads,
+//     getRadsFromDistance: getRadsFromDistance
+//   };
+// })();
 
-module.exports.getAllUsers = function (req, res){
+module.exports.getUsers = function (req, res){
 
   console.log('Finding users details', req.params);
   
@@ -31,17 +31,17 @@ module.exports.getAllUsers = function (req, res){
     .find()
     .exec(function(err, location) {
       if (!location) {
-        sendJsonresponse(res, 404, {
+        sendJsonResponse(res, 404, {
           "message": "locationid not found"
         });
         return;
       } else if (err) {
         console.log(err);
-        sendJsonresponse(res, 404, err);
+        sendJsonResponse(res, 404, err);
         return;
       }
       console.log(location);
-      sendJsonresponse(res, 200, location);
+      sendJsonResponse(res, 200, location);
     });
   
   return;
@@ -59,9 +59,9 @@ module.exports.createUser = function(req, res){
     description: req.body.description
 	},function(err, user){
 		if (err){
-      sendJsonresponse(res, 400, err);
+      sendJsonResponse(res, 400, err);
     }else{
-      sendJsonresponse(res, 201, user);
+      sendJsonResponse(res, 201, user);
     }
 	});
 };
@@ -69,7 +69,7 @@ module.exports.createUser = function(req, res){
 //FUnciton to update a User
 module.exports.updateUser = function (req, res) { 
   if (!req.params.userid) {
-    sendJsonresponse(res, 404, {
+    sendJsonResponse(res, 404, {
       "message" : "Not found, userid is required"});
     return;
   }
@@ -79,13 +79,13 @@ module.exports.updateUser = function (req, res) {
     .exec(
       function(err, user){
         if (!user) {
-          sendJsonresponse(res, 404, {
+          sendJsonResponse(res, 404, {
             "message" : "userid not found"
           });
           return;
         }
         else if (err) {
-          sendJsonresponse(res, 200, err);
+          sendJsonResponse(res, 200, err);
           return;
         }
         user.name = req.body.name;
@@ -95,10 +95,10 @@ module.exports.updateUser = function (req, res) {
         user.description = req.body.description;
         user.save(function(err, user){
           if (err) {
-            sendJsonresponse(res, 404, err);
+            sendJsonResponse(res, 404, err);
           }
           else{
-            sendJsonresponse(res, 200, user);
+            sendJsonResponse(res, 200, user);
           }
         });       
       }
@@ -112,18 +112,18 @@ module.exports.getUser = function (req, res) {
       .findById(req.params.userid)
       .exec(function(err, user){
         if (!user) {
-          sendJsonresponse(res, 404, {
+          sendJsonResponse(res, 404, {
             "message": "userid not found"
           });
         }
         else if (err) {
-          sendJsonresponse(res, 404, err);
+          sendJsonResponse(res, 404, err);
           return;
         } 
-        sendJsonresponse(res, 200, user);
+        sendJsonResponse(res, 200, user);
     }); 
   } else {
-    sendJsonresponse(res, 404, {
+    sendJsonResponse(res, 404, {
       "message": "No userid in request"
     });
   } 
@@ -138,15 +138,15 @@ module.exports.deleteUser = function (req, res) {
       .exec(
         function(err, user){
           if (err) {
-            sendJsonresponse(res, 404, err);
+            sendJsonResponse(res, 404, err);
             return;
           }
-          sendJsonresponse(res, 204, null);
+          sendJsonResponse(res, 204, null);
         }
     );
   }
   else{
-    sendJsonresponse(res, 404, {
+    sendJsonResponse(res, 404, {
       "message": "No userid"
     });
   }
