@@ -27,7 +27,7 @@ exports.register = function(req, res) {
 /*
  * POST register user.
  */
-
+/*
 exports.registerUser = function(req, res) {
 
   // pull the form variables off the request body
@@ -40,8 +40,7 @@ exports.registerUser = function(req, res) {
     DisplayName: req.body.display
   }
 
-};
-/*
+};*/
 exports.registerUser = function(req, res) {
 
   // validate the input
@@ -63,6 +62,6 @@ exports.registerUser = function(req, res) {
     res.render('register', { flash: { type: 'alert-success', messages: [ { msg: 'No errors!' }]}});
   }
 
-};*/
+};
 
   // register the user.

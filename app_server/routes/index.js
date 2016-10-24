@@ -6,6 +6,7 @@ var router = express.Router();
 var ctrlLocations = require('../controllers/locations');
 var crtlOthers = require('../controllers/others');
 var ctrlPages = require('../controllers/pages');
+var ctrlRegLog = require('../controllers/reglog');
 
 /*Locations pages*/
 
