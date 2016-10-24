@@ -10,6 +10,7 @@ var ctrlPages = require('../controllers/pages');
 /*Locations pages*/
 
 router.get('/', ctrlPages.home);
+router.get('/map', ctrlPages.map);
 
 
 /* Other pages */
