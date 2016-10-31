@@ -28,6 +28,15 @@ block header
       .container
         .row
           .col-md-10.col-lg-10.col-md-offset-1.col-lg-offset-1.text-center
+            .searchBox
+              input#searchTextField(type='text', placeholder='Search a destination location') 
+          // /col
+        // /row
+    // Second (About) section
+    section#about.section
+      .container
+        .row
+          .col-md-10.col-lg-10.col-md-offset-1.col-lg-offset-1.text-center
             // Site Title, your name, HELLO msg, etc.
             h1.title BITACORA
             h2.subtitle Aventurate en nuevos lugares, crea una historia
@@ -41,37 +50,6 @@ block header
           // /col
         // /row
     // Second (About) section
-    section#about.section
-      .container
-        h2.text-center.title ¿Quienes Somos?
-        .row
-          .col-sm-4.col-sm-offset-2
-            h5
-              strong
-                | Where's my lorem ipsum?
-                br
-            p
-              | Well, here it is: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum, ullam, ducimus, eaque, ex autem est dolore illo similique quasi unde sint rerum magnam quod amet iste dolorem ad laudantium molestias enim quibusdam inventore totam fugit eum iusto ratione alias deleniti suscipit modi quis nostrum veniam fugiat debitis officiis impedit ipsum natus ipsa. Doloremque, id, at, corporis, libero laborum architecto mollitia molestiae maxime aut deserunt sed perspiciatis quibusdam praesentium consectetur in sint impedit voluptates! Deleniti, sequi voluptate recusandae facere nostrum?
-          .col-sm-4
-            h5
-              strong
-                | More, more lipsum!
-                br
-            p
-              | Tempore, eos, voluptatem minus commodi error aut eaque neque consequuntur optio nesciunt quod quibusdam. Ipsum, voluptatibus, totam, modi perspiciatis repudiandae odio ad possimus molestias culpa optio eaque itaque dicta quod cupiditate reiciendis illo illum aspernatur ducimus praesentium quae porro alias repellat quasi cum fugiat accusamus molestiae exercitationem amet fugit sint eligendi omnis adipisci corrupti. Aspernatur.
-            h5
-              strong
-                | Author links
-                br
-            p
-              a(href='http://be.net/pozhilov9409') Behance
-              |  / 
-              a(href='https://twitter.com/serggg') Twitter
-              |  / 
-              a(href='http://linkedin.com/pozhilov') LinkedIn
-              |  / 
-              a(href='https://www.facebook.com/pozhilov') Facebook
-    // Third (Works) section
     section#rutas.section
       .container
         h2.text-center.title Rutas recientes
@@ -153,4 +131,15 @@ block header
     script(src='../js/modernizr.custom.72241.js')
     // Custom template scripts
     script(src='../js/magister.js')
+    script.
+      function initialize() {
+      var input = document.getElementById('searchTextField');
+      var autocomplete = new google.maps.places.Autocomplete(input);      
+      autocomplete.addListener('place_changed', function() {
+      var place = autocomplete.getPlace();
+      console.log(place);
+      window.location.href = "/mapSearch";
+      });        
+      }
+    script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCHOdauoh_16stWPxM67AJZpWjp3UWA2rI&libraries=places&callback=initialize', async='', defer='')
 

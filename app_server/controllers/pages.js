@@ -11,3 +11,9 @@ module.exports.map = function(req, res){
         title: 'Map Bitacora'       
     });	
 }
+
+module.exports.mapSearch = function(req, res){
+	res.render('map_search', {
+        title: 'Map Bitacora'       
+    });	
+}

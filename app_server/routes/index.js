@@ -12,6 +12,7 @@ var ctrlRegLog = require('../controllers/reglog');
 
 router.get('/', ctrlPages.home);
 router.get('/map', ctrlPages.map);
+router.get('/mapSearch', ctrlPages.mapSearch);
 
 
 /* Other pages */
