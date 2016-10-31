@@ -1,8 +1,30 @@
 var express = require('express');
 var router = express.Router();
 var ctrlUsers = require('../controllers/users');
+var ctrlRoutes = require('../controllers/routes');
+var ctrlLocations = require('../controllers/locations');
 
-router.get('/getUsers', ctrlUsers.getAllUsers);
+
+///USERS
+router.get('/users', ctrlUsers.getUsers);
+router.get('/users/:userid', ctrlUsers.getUser);
+router.post('/users', ctrlUsers.createUser);
+router.put('/users/:userid', ctrlUsers.updateUser);
+router.delete('/users/:userid', ctrlUsers.deleteUser);
+
+///ROUTES
+
+// router.get('/users/:userid/routes', ctrlRoutes.getRoutes);
+router.post('/users/:userid/routes', ctrlRoutes.createRoute);
+router.put('/users/:userid/routes/:routeid', ctrlRoutes.updateRoute);
+router.put('/users/:userid/routes/:routeid/:newrating', ctrlRoutes.updateRatingRoute);
+router.delete('/users/:userid/routes/:routeid', ctrlRoutes.deleteRoute);
+
+
+///LOCATIONS
+router.post('/users/:userid/routes/:routeid/locations', ctrlLocations.locationsCreate);
+router.delete('/users/:userid/routes/:routeid/locations/:locationid', ctrlLocations.deleteLocation);
+
 
 /*
 router.get('/getlocations', ctrlLocations.getAllLocations);

@@ -1,101 +1,156 @@
-doctype html
-//
-  Iridium by TEMPLATED
-  templated.co @templatedco
-  Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
-html
-  head
-    title BITACORA
-    meta(http-equiv='content-type', content='text/html; charset=utf-8')
-    meta(name='description', content='')
-    meta(name='keywords', content='')
-    link(href='http://fonts.googleapis.com/css?family=Arimo:400,700', rel='stylesheet', type='text/css')
-    //if lte IE 8
-      script(src='js/html5shiv.js')
-    script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js')
-    script(src='../js/skel.min.js')
-    script(src='../js/skel-panels.min.js')
-    script(src='../js/init.js')
-    script(src='../js/bootstrap-modal.js')
-    
-    link(rel='stylesheet', href='../css/skel-noscript.css')
-    link(rel='stylesheet', href='../css/style.css')
-    link(rel='stylesheet', href='../css/style-desktop.css')
-    link(rel='stylesheet', href='../css/bootstrap.css')
-    //if lte IE 8
-      link(rel='stylesheet', href='css/ie/v8.css')
-    //if lte IE 9
-      link(rel='stylesheet', href='css/ie/v9.css')
-  body.homepage
-    // Header
-    #header
+extends header
+block header
+    nav.mainmenu
       .container
-        // Logo
-        #logo
-          h1
-            a(href='#') BITACORA
-          span Viajeros sin origen
-        // Nav
-        nav#nav
-          ul
-            li.active
-              a(href='#featured') Rutas recientes
+        .pull-right
+          ul.nav.navbar-nav.navbar-right
             li
-              a(data-toggle='modal', href='#formularioRuta') Agregar nueva ruta
+              a(href='#') Signin
             li
-              a(href='#') Mejores fotos
+              a(href='#') Signout
+        .dropdown
+          button.navbar-toggle(type='button', data-toggle='dropdown')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          // <a data-toggle="dropdown" href="#">Dropdown trigger</a>
+          ul.dropdown-menu(role='menu', aria-labelledby='dLabel')
             li
-              a(href='#') Contactanos
-    // Main
-    //
-      <div id="main">
-      <div class="container">
-      </div>
-      </div>
-    // Modal
-    #formularioRuta.modal.hide.fade.in(style='display: none;')
-      .modal-header
-        a.close(data-dismiss='modal') ×
-        h3 Ingrese su Ruta
-      .modal-body
-        h4
-        p
-      .modal-footer
-        a.btn.btn-success(href='index.html') Guardar
-        a.btn(href='#', data-dismiss='modal') Cerrar
-    // Footer
-    #featured
+              a.active(href='#head') Hola
+            li
+              a(href='#about') ¿Quienes somos?
+            li
+              a(href='#rutas') Rutas recientes
+            li
+              a(href='#contact') Contactanos
+    // Main (Home) section
+    section#head.section
       .container
         .row
-          .4u
-            h2 Ruta a Yura
-            a.image.full(href='#')
-              img(src='images/yura.jpg', alt='')
-            p El distrito de yura se encuentra a unos 35km ....
+          .col-md-10.col-lg-10.col-md-offset-1.col-lg-offset-1.text-center
+            // Site Title, your name, HELLO msg, etc.
+            h1.title BITACORA
+            h2.subtitle Aventurate en nuevos lugares, crea una historia
+            // Short introductory (optional)
+            h3.tagline
+              | Buscamos mejorar tu experiencia de turismo.
+              br
+            // Nice place to describe your site in a sentence or two
             p
-              a.button(href='#') Mas detalles
-          .4u
-            h2 Ruta a Chapi
-            a.image.full(href='#')
-              img(src='images/chapi.jpg', alt='')
-            p Chapi se encuntra ubicado en la localidad de pocsi...
-            p
-              a.button(href='#') Mas detalles
-          .4u
-            h2 Ruta a Cabanaconde
-            a.image.full(href='#')
-              img(src='images/cabanaconde.jpg', alt='')
-            p La ruta hacia cabanaconde es una ruta dificil de seguir...
-            p
-              a.button(href='#') Mas detalles
-    // Footer
-    // Copyright
-    #copyright
+              a.btn.btn-default.btn-lg(href='#') Registrate ahora
+          // /col
+        // /row
+    // Second (About) section
+    section#about.section
       .container
-        | Design: 
-        a(href='#') BITACORA
-        |  Images: 
-        a(href='#') BITACORA
-        |  (
-        a(href='') CC0
-        | )
+        h2.text-center.title ¿Quienes Somos?
+        .row
+          .col-sm-4.col-sm-offset-2
+            h5
+              strong
+                | Where's my lorem ipsum?
+                br
+            p
+              | Well, here it is: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum, ullam, ducimus, eaque, ex autem est dolore illo similique quasi unde sint rerum magnam quod amet iste dolorem ad laudantium molestias enim quibusdam inventore totam fugit eum iusto ratione alias deleniti suscipit modi quis nostrum veniam fugiat debitis officiis impedit ipsum natus ipsa. Doloremque, id, at, corporis, libero laborum architecto mollitia molestiae maxime aut deserunt sed perspiciatis quibusdam praesentium consectetur in sint impedit voluptates! Deleniti, sequi voluptate recusandae facere nostrum?
+          .col-sm-4
+            h5
+              strong
+                | More, more lipsum!
+                br
+            p
+              | Tempore, eos, voluptatem minus commodi error aut eaque neque consequuntur optio nesciunt quod quibusdam. Ipsum, voluptatibus, totam, modi perspiciatis repudiandae odio ad possimus molestias culpa optio eaque itaque dicta quod cupiditate reiciendis illo illum aspernatur ducimus praesentium quae porro alias repellat quasi cum fugiat accusamus molestiae exercitationem amet fugit sint eligendi omnis adipisci corrupti. Aspernatur.
+            h5
+              strong
+                | Author links
+                br
+            p
+              a(href='http://be.net/pozhilov9409') Behance
+              |  / 
+              a(href='https://twitter.com/serggg') Twitter
+              |  / 
+              a(href='http://linkedin.com/pozhilov') LinkedIn
+              |  / 
+              a(href='https://www.facebook.com/pozhilov') Facebook
+    // Third (Works) section
+    section#rutas.section
+      .container
+        h2.text-center.title Rutas recientes
+        p.lead.text-center
+          | Huge thank you to all people who publish
+          br
+          | 					their photos at 
+          a(href='http://unsplash.com') Unsplash
+          | , thank you guys!
+        .row
+          .col-sm-4.col-sm-offset-2
+            .thumbnail
+              img(src='assets/rutas/yura.jpg', alt='')
+              .caption
+                h3 Thumbnail label
+                p
+                  | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque doloribus enim vitae nam cupiditate eius at explicabo eaque facere iste.
+                p
+                  a.btn.btn-primary(href='#', role='button') Button
+                  a.btn.btn-default(href='#', role='button') Button
+          .col-sm-4
+            .thumbnail
+              img(src='assets/rutas/chapi.jpg', alt='')
+              .caption
+                h3 Thumbnail label
+                p
+                  | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque doloribus enim vitae nam cupiditate eius at explicabo eaque facere iste.
+                p
+                  a.btn.btn-primary(href='#', role='button') Button
+                  a.btn.btn-default(href='#', role='button') Button
+          .col-sm-4.col-sm-offset-2
+            .thumbnail
+              img(src='assets/rutas/cabanaconde.jpg', alt='')
+              .caption
+                h3 Thumbnail label
+                p
+                  | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque doloribus enim vitae nam cupiditate eius at explicabo eaque facere iste.
+                p
+                  a.btn.btn-primary(href='#', role='button') Button
+                  a.btn.btn-default(href='#', role='button') Button
+          .col-sm-4
+            .thumbnail
+              img(src='assets/rutas/yura1.jpg', alt='')
+              .caption
+                h3 Thumbnail label
+                p
+                  | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque doloribus enim vitae nam cupiditate eius at explicabo eaque facere iste.
+                p
+                  a.btn.btn-primary(href='#', role='button') Button
+                  a.btn.btn-default(href='#', role='button') Button
+    // Fourth (Contact) section
+    section#contact.section
+      .container
+        h2.text-center.title Get in touch
+        .row
+          .col-sm-8.col-sm-offset-2.text-center
+            p.lead Have a question about this template, or want to suggest a new feature?
+            p Feel free to email me, or drop me a line in Twitter!
+            p
+              b gt@gettemplate.com
+              br
+              br
+            ul.list-inline.list-social
+              li
+                a.btn.btn-link(href='https://twitter.com/serggg')
+                  i.fa.fa-twitter.fa-fw
+                  |  Twitter
+              li
+                a.btn.btn-link(href='https://github.com/pozhilov')
+                  i.fa.fa-github.fa-fw
+                  |  Github
+              li
+                a.btn.btn-link(href='http://linkedin/in/pozhilov')
+                  i.fa.fa-linkedin.fa-fw
+                  |  LinkedIn
+    // Load js libs only when the page is loaded.
+    script(src='../js/jquery.min.js')
+    script(src='../bootstrap/js/bootstrap.min.js')
+    script(src='../js/modernizr.custom.72241.js')
+    // Custom template scripts
+    script(src='../js/magister.js')
+
