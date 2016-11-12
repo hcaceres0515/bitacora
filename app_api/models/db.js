@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var gracefulShutdown;
 var dbURI = 'mongodb://bitacorasocial:bitacora_2016@ds041546.mlab.com:41546/heroku_7kjmf81w';
+//var dbURI = 'mongodb://127.0.0.1:27017/nodev1';
+
 if (process.env.NODE_ENV === 'production') {
     dbURI = process.env.MONGOLAB_URI;
 }
@@ -47,3 +49,4 @@ process.on('SIGTERM', function() {
 
 // BRING IN YOUR SCHEMAS & MODELS
 require('./users');
+require('./user');

@@ -50,7 +50,6 @@ module.exports.getUsers = function (req, res){
 
 
 //Function for add User
-
 module.exports.createUser = function(req, res){
 	Loc.create({
 		name: req.body.name, 
@@ -152,4 +151,3 @@ module.exports.deleteUser = function (req, res) {
     });
   }
 };
-

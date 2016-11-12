@@ -6,12 +6,11 @@ var router = express.Router();
 var ctrlLocations = require('../controllers/locations');
 var crtlOthers = require('../controllers/others');
 var ctrlPages = require('../controllers/pages');
-var ctrlRegLog = require('../controllers/reglog');
+var ctrlRegLog =require('../controllers/reglog')
 
 /*Locations pages*/
 
 router.get('/', ctrlPages.home);
-router.get('/map', ctrlPages.map);
 
 
 /* Other pages */
@@ -28,13 +27,10 @@ router.get('/', homepageController);
 //router.get('/', ctrlMain.index);
 
 /*registro y login*/
-router.get('/', ctrlRegLog.index);
+//router.get('/', ctrlRegLog.index);
 router.get('/login', ctrlRegLog.login);
 router.get('/register', ctrlRegLog.register);
-
+router.post('/register', ctrlRegLog.doAddregister);
 // POST
 //router.post('/register', ctrlRegLog.registerUser);
-
-
 module.exports = router;
-

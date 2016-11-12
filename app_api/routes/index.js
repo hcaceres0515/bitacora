@@ -3,6 +3,7 @@ var router = express.Router();
 var ctrlUsers = require('../controllers/users');
 var ctrlRoutes = require('../controllers/routes');
 var ctrlLocations = require('../controllers/locations');
+var ctrlRegister = require('../controllers/register');
 
 
 ///USERS
@@ -11,6 +12,7 @@ router.get('/users/:userid', ctrlUsers.getUser);
 router.post('/users', ctrlUsers.createUser);
 router.put('/users/:userid', ctrlUsers.updateUser);
 router.delete('/users/:userid', ctrlUsers.deleteUser);
+
 
 ///ROUTES
 
@@ -25,9 +27,10 @@ router.delete('/users/:userid/routes/:routeid', ctrlRoutes.deleteRoute);
 router.post('/users/:userid/routes/:routeid/locations', ctrlLocations.locationsCreate);
 router.delete('/users/:userid/routes/:routeid/locations/:locationid', ctrlLocations.deleteLocation);
 
+//register
+router.post('/locations/register', ctrlRegister.registerCreate)
 
-/*
-router.get('/getlocations', ctrlLocations.getAllLocations);
+/*router.get('/getlocations', ctrlLocations.getAllLocations);
 router.get('/locations', ctrlLocations.locationsListByDistance);
 router.post('/locations', ctrlLocations.locationsCreate);
 router.get('/locations/:locationid', ctrlLocations.locationsReadOne);
@@ -38,6 +41,6 @@ router.delete('/locations/:locationid', ctrlLocations.locationsDeleteOne);
 router.post('/locations/:locationid/reviews', ctrlReviews.reviewsCreate);
 router.get('/locations/:locationid/reviews/:reviewid', ctrlReviews.reviewsReadOne);
 router.put('/locations/:locationid/reviews/:reviewid', ctrlReviews.reviewsUpdateOne);
-router.delete('/locations/:locationid/reviews/:reviewid', ctrlReviews.reviewsDeleteOne);
-*/
+router.delete('/locations/:locationid/reviews/:reviewid', ctrlReviews.reviewsDeleteOne);*/
+
 module.exports = router;
