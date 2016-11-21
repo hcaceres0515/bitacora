@@ -54,7 +54,8 @@ module.exports.getUsers = function (req, res){
 //Function for add User without routes
 module.exports.createUser = function(req, res){
 	User.create({
-		name: req.body.name, 
+    name: req.body.name, 
+		email: req.body.email, 
 		avatar: req.body.avatar,
     image: req.body.image,
 		nick: req.body.nick,
