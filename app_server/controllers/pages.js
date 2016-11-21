@@ -1,8 +1,35 @@
+var request = require('request');
+var apiOptions = {
+    server : "http://localhost:3000"
+};
+if (process.env.NODE_ENV === 'production') {
+    apiOptions.server = "https://getting-mean-loc8r.herokuapp.com";
+}
+
+
 /* GET 'Add review' page */
+var renderHomepage = function(req, res, responseBody){
+	res.render('index',{
+		title:'Bitacora',
+		users: responseBody
+	});
+}
+
 module.exports.home = function(req, res) {
-    res.render('index', {
-        title: 'Bitacora'       
-    });
+    var requestOptions, path;
+    path = '/api/users';
+    
+    requestOptions = {
+        url : apiOptions.server + path,
+        method : "GET",
+        json : {},        
+    }
+
+    request(
+        requestOptions, function (err, response, body){
+            renderHomepage(req, res, body);
+        }
+    ); 
 };
 
 

@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var Loc = mongoose.model('User');
+var User = mongoose.model('User');
 
 var sendJsonResponse = function(res, status, content) {
   res.status(status);
@@ -23,16 +23,18 @@ var sendJsonResponse = function(res, status, content) {
 //   };
 // })();
 
+
+// Get all users
 module.exports.getUsers = function (req, res){
 
   console.log('Finding users details', req.params);
   
-  Loc
+  User
     .find()
-    .exec(function(err, location) {
-      if (!location) {
+    .exec(function(err, Useration) {
+      if (!Useration) {
         sendJsonResponse(res, 404, {
-          "message": "locationid not found"
+          "message": "Userationid not found"
         });
         return;
       } else if (err) {
@@ -40,8 +42,8 @@ module.exports.getUsers = function (req, res){
         sendJsonResponse(res, 404, err);
         return;
       }
-      console.log(location);
-      sendJsonResponse(res, 200, location);
+      console.log(Useration);
+      sendJsonResponse(res, 200, Useration);
     });
   
   return;
@@ -49,12 +51,12 @@ module.exports.getUsers = function (req, res){
 }
 
 
-//Function for add User
-
+//Function for add User without routes
 module.exports.createUser = function(req, res){
-	Loc.create({
+	User.create({
 		name: req.body.name, 
 		avatar: req.body.avatar,
+    image: req.body.image,
 		nick: req.body.nick,
     password: req.body.password,
     description: req.body.description
@@ -74,7 +76,7 @@ module.exports.updateUser = function (req, res) {
       "message" : "Not found, userid is required"});
     return;
   }
-  Loc
+  User
     .findById(req.params.userid)
     .select('-routes')
     .exec(
@@ -109,7 +111,7 @@ module.exports.updateUser = function (req, res) {
 //Function to get a specified user
 module.exports.getUser = function (req, res) { 
   if (req.params && req.params.userid) {
-    Loc 
+    User 
       .findById(req.params.userid)
       .exec(function(err, user){
         if (!user) {
@@ -134,7 +136,7 @@ module.exports.getUser = function (req, res) {
 module.exports.deleteUser = function (req, res) { 
   var userid = req.params.userid;
   if (userid) {
-    Loc
+    User
       .findByIdAndRemove(userid)
       .exec(
         function(err, user){

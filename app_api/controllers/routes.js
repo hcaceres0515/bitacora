@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
-var Loc = mongoose.model('User');
+var Rou = mongoose.model('Route');
+var User = mongoose.model('User');
 
 var sendJsonResponse = function(res, status, content) {
   res.status(status);
@@ -7,8 +8,23 @@ var sendJsonResponse = function(res, status, content) {
 };
 
 module.exports.createRoute = function(req, res) {
+  
+  Rou.create({
+    name : req.body.name,
+    description: req.body.description,
+    tags : req.body.tags.split(",")
+  },function(err, route){
+    if (err){
+      sendJsonResponse(res, 400, err);
+    }else{
+      sendJsonResponse(res, 201, route);
+    }
+  });  
+};
+
+module.exports.createUserRoute = function (req, res){
   if (req.params.userid) {
-    Loc
+    User
       .findById(req.params.userid)
       .select('routes')
       .exec(
@@ -25,28 +41,31 @@ module.exports.createRoute = function(req, res) {
       "message": "Not found, userid required"
     });
   }
-};
+}
 
 var doAddRoute = function(req, res, user) {
   if (!user) {
     sendJsonResponse(res, 404, "userid not found");
   } else {
-    user.routes.push({
-      name: req.body.name,
+    Rou.create({
+      name : req.body.name,
       description: req.body.description,
-      date: req.body.date,
-      rating: 3,
-      numberRating: 0
-    });
-    user.save(function(err, user) {
-      var thisRoute;
-      if (err) {
+      tags : req.body.tags.split(",")
+    },function(err, route){
+      if (err){
         sendJsonResponse(res, 400, err);
-      } else {
-      	thisRoute = user.routes[user.routes.length - 1];
-        sendJsonResponse(res, 201, thisRoute);
+      }else{
+        user.routes.push(route._id);
+
+        user.save(function(err, user) {
+          if (err) {
+            sendJSONresponse(res, 404, err);
+          } else {
+             sendJsonResponse(res, 201, user);
+          }
+        });
       }
-    });
+    }); 
   }
 };
 
@@ -63,7 +82,7 @@ module.exports.updateRoute = function(req, res) {
     });
     return;
   }
-  Loc.findOneAndUpdate(
+  Rou.findOneAndUpdate(
     { "_id": req.params.userid, "routes._id": req.params.routeid },
     { 
         "$set": {
@@ -100,7 +119,7 @@ module.exports.updateRatingRoute = function(req, res) {
     });
     return;
   }
-  Loc
+  Rou
     .findById(req.params.userid)
     .exec(
       function(err, user) {
@@ -170,7 +189,7 @@ module.exports.deleteRoute = function (req, res) {
     });
     return;
   }
-  Loc.update(
+  Rou.update(
     { 
       "_id": req.params.userid 
     },

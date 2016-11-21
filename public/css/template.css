@@ -1,6 +1,5 @@
 
-.searchBox > input {
-      margin-top: 80px;
+input.search-input-google {
       border: 1px solid transparent;
       border-radius: 2px 0 0 2px;
       box-sizing: border-box;
@@ -21,3 +20,4 @@
 #pac-input:focus {
       border-color: #4d90fe;
 }
+
