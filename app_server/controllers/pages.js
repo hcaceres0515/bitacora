@@ -18,7 +18,7 @@ var renderHomepage = function(req, res, responseBody){
 module.exports.home = function(req, res) {
     var requestOptions, path;
     path = '/api/users';
-    
+    console.log(apiOptions.server + path);
     requestOptions = {
         url : apiOptions.server + path,
         method : "GET",
