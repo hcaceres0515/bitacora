@@ -18,11 +18,13 @@ html(lang='en')
     // Theme CSS
     link(href='css/agency.css', rel='stylesheet')
     link(rel='stylesheet', href='../css/template.css')
+    link(rel='stylesheet', href='../css/bitacora.css')
+    link(rel='stylesheet', href='../css/sidebar.css')
+
     // HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
     // WARNING: Respond.js doesn't work if you view the page via file://
     //if lt IE 9
-      script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
-      script(src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
+
   body#page-top.index
     // Navigation
     nav#mainNav.navbar.navbar-default.navbar-custom.navbar-fixed-top
@@ -40,9 +42,9 @@ html(lang='en')
             li.hidden
               a(href='#page-top')            
             li
-              a.page-scroll(href='') Register
+              a.page-scroll(href='#', data-toggle='modal', data-target='#register') Register
             li
-              a.page-scroll(href='') Login
+              a.page-scroll(href='#', data-toggle='modal', data-target='#signin') Login
         // /.navbar-collapse
       // /.container-fluid
     // Header
@@ -73,6 +75,7 @@ html(lang='en')
               | The best routes was selected by other users, you can upload your route and other users will post reviews in your route.
           .col-lg-12.text-center            
             button.btn.btn-xl(type='submit') More users  
+
     footer
       .container
         .row
@@ -94,7 +97,57 @@ html(lang='en')
               li
                 a(href='#') Privacy Policy
               li
-                a(href='#') Terms of Use    
+                a(href='#') Terms of Use 
+
+    #signin.modal.fade(tabindex='-1', role='dialog', aria-labelledby='ModalLabel', aria-hidden='true')
+      .modal-dialog.modal-sm
+        #sha.modal-content.container.well
+          .modal-header
+            button.close(type='button', data-dismiss='modal')
+              span(aria-hidden='true') ×
+              span.sr-only Cerrar
+            h4#ModalLabel.modal-title Iniciar sesion
+          form.login(action='', method='')
+            .modal-body
+              .row
+                .col-xs-12
+                  img#avatar.img-responsive(src='img/icono_bitacora.jpg')
+              .form-group
+                input.form-control(type='email', placeholder='Correo electrónico', name='email', required='', autofocus='')
+              .form-group
+                input.form-control(type='password', placeholder='Contraseña', name='pass', required='')
+            .modal-footer
+              button.btn.btn-lg.btn-primary.btn-block(type='submit') Iniciar sesión
+              .checkbox
+                label.checkbox
+                  input(type='checkbox', value='1', name='remember')
+                  |  No cerrar sesión
+                p.help-block
+                  a(href='#') ¿No puedes acceder a tu cuenta?
+    #register.modal.fade(tabindex='-1', role='dialog', aria-labelledby='ModalLabel', aria-hidden='true')
+      .modal-dialog.modal-sm
+        #sha.modal-content.container.well
+          .modal-header
+            button.close(type='button', data-dismiss='modal')
+              span(aria-hidden='true') ×
+              span.sr-only Cerrar
+            h4#ModalLabel.modal-title Registrate
+          form.login(action='', method='')
+            .modal-body
+              .form-group
+                input.form-control(type='text', placeholder='Nombres', name='name', required='', autofocus='')
+              .form-group
+                input.form-control(type='text', placeholder='Apellidos', name='lastName', required='', autofocus='')
+              .form-group
+                input.form-control(type='text', placeholder='Nombre de Usuario', name='user', required='', autofocus='')
+              .form-group
+                input.form-control(type='email', placeholder='Correo electrónico', name='email', required='', autofocus='')
+              .form-group
+                input.form-control(type='password', placeholder='Contraseña', name='pass', required='', autofocus='')
+              .form-group
+                input.form-control(type='password', placeholder='Repita la contraseña', name='repass', required='')
+            .modal-footer
+              button.btn.btn-lg.btn-primary.btn-block(type='submit') Registrate
     // jQuery
     script(src='../js/jquery.min.js')
     // Bootstrap Core JavaScript
@@ -102,10 +155,13 @@ html(lang='en')
     // Plugin JavaScript
     script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js')
     // Contact Form JavaScript
-    script(src='js/jqBootstrapValidation.js')
-    script(src='js/contact_me.js')
+    script(src='../js/jqBootstrapValidation.js')
+    script(src='../js/contact_me.js')
     // Theme JavaScript
-    script(src='js/agency.min.js')
+    script(src='../js/agency.min.js')
+    script(src='../js/bitacora.js')
+    script(src='../js/rating.js')
+
     script.
       function initialize() {
       var input = document.getElementById('searchTextField');
