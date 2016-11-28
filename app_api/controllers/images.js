@@ -1,22 +1,23 @@
 var mongoose = require('mongoose');
 var Rou = mongoose.model('Route');
 
+
 var sendJsonResponse = function(res, status, content) {
   res.status(status);
   res.json(content);
 };
 
 
-var doAddLocation = function(req, res, route) {
+var doAddImage = function(req, res, route) {
   if (!route) {
-    sendJsonResponse(res, 404, "routeiddddd not found");
+    sendJsonResponse(res, 404, "routeid not found");
     return;
   } else {
-    route.location.push({
-      name: req.body.name,
+    route.images.push({
+      description: req.body.description,
       lon: req.body.lon,
       lat: req.body.lat,
-      description: req.body.description
+      image: req.body.image
     });
     route.save(function(err, routeNew) {
       if (err) {
@@ -31,13 +32,12 @@ var doAddLocation = function(req, res, route) {
 
 
 
-
-//Get a set of locations of a specific route
-module.exports.getLocations = function (req, res) { 
+//Get a set of images of a specific route
+module.exports.getImages = function (req, res) { 
   if (req.params && req.params.routeid) {
     Rou
       .findById(req.params.routeid)
-      .select('location')
+      .select('images')
       .exec(function(err, route){
         if (!route) {
           sendJsonResponse(res, 404, {
@@ -57,18 +57,19 @@ module.exports.getLocations = function (req, res) {
   } 
 };
 
-//Create a new location of a specific route
-module.exports.createLocation = function(req, res) {
+
+//Create a new image of a specific route
+module.exports.createImage = function(req, res) {
   if (req.params.routeid) {
     Rou
       .findById(req.params.routeid)
-      .select('location')
+      .select('images')
       .exec(
         function(err, route) {
           if (err) {
             sendJsonResponse(res, 400, err);
           } else {
-            doAddLocation(req, res, route);
+            doAddImage(req, res, route);
           }
         }
     );
@@ -79,60 +80,17 @@ module.exports.createLocation = function(req, res) {
   }
 };
 
-
-//Update specific location from specific route
-module.exports.updateLocation = function (req, res) { 
+///Delete a specific image from a specific route
+module.exports.deleteImage = function (req, res) { 
   if (!req.params.routeid) {
     sendJsonResponse(res, 404, {
       "message": "routeid is required"
     });
     return;
   }
-  if (!req.params.locationid) {
+  if (!req.params.imageid) {
     sendJsonResponse(res, 404, {
-      "message": "locationid is required"
-    });
-    return;
-  }
-    Rou.update(
-      { "_id": req.params.routeid,
-        "location._id": req.params.locationid
-      }, 
-      { 
-        "$set": 
-        {
-          "location.$.name": req.body.name,
-          "location.$.lon": req.body.lon,
-          "location.$.lat": req.body.lat,
-          "location.$.description": req.body.description
-        }
-      },
-      function(err, route) {
-        if (err)
-        {
-          sendJsonResponse(res, 404, err);
-          console.log("111" + route);
-        }
-        else{
-          sendJsonResponse(res, 200, route);
-          console.log("222" + route);
-        } 
-      }
-    );
-};
-
-
-///Delete a specific location from a specific route
-module.exports.deleteLocation = function (req, res) { 
-  if (!req.params.routeid) {
-    sendJsonResponse(res, 404, {
-      "message": "routeid is required"
-    });
-    return;
-  }
-  if (!req.params.locationid) {
-    sendJsonResponse(res, 404, {
-      "message": "locationid is required"
+      "message": "imageid is required"
     });
     return;
   }
@@ -142,8 +100,8 @@ module.exports.deleteLocation = function (req, res) {
     },
     { 
       "$pull": { 
-        "location": {
-          "_id": req.params.locationid 
+        "images": {
+          "_id": req.params.imageid 
         } 
       } 
     },
@@ -158,4 +116,3 @@ module.exports.deleteLocation = function (req, res) {
     }
   );
 };
-

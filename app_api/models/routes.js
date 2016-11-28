@@ -39,6 +39,7 @@ var routeSchema = new mongoose.Schema({
         required: true
     },
     description: String,
+    user: { type: String, required : true},
     rating: {
         type: Number,
         "default": 0,

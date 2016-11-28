@@ -1,115 +1,59 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+var Route = mongoose.model('Route');
+
 
 var sendJsonResponse = function(res, status, content) {
   res.status(status);
   res.json(content);
 };
 
-// var theEarth = (function() {
-//   var earthRadius = 6371; // km, miles is 3959
+//Delete all routes which owned to specific user
+var deleteRoutes = function(userid){
+  if (userid) {
+    Route.remove(
+      {
+        "user": userid 
+      },
+      function(err, route) { 
+        if(err){
+          console.log("404" + err);
+          return;
+        } 
+        else {
+          console.log("204");
+        }
+    });
+  } else {
+    console.log("404", {
+      "message": "No userid"
+    });
+  } 
+};
 
-//   var getDistanceFromRads = function(rads) {
-//     return parseFloat(rads * earthRadius);
-//   };
-
-//   var getRadsFromDistance = function(distance) {
-//     return parseFloat(distance / earthRadius);
-//   };
-
-//   return {
-//     getDistanceFromRads: getDistanceFromRads,
-//     getRadsFromDistance: getRadsFromDistance
-//   };
-// })();
-
-
-// Get all users
+//Get all users
 module.exports.getUsers = function (req, res){
-
-  console.log('Finding users details', req.params);
-  
   User
     .find()
-    .exec(function(err, Useration) {
-      if (!Useration) {
+    .exec(function(err, users) {
+      if (!users) {
         sendJsonResponse(res, 404, {
-          "message": "Userationid not found"
+          "message": "users not found"
         });
         return;
       } else if (err) {
-        console.log(err);
+        //console.log(err);
         sendJsonResponse(res, 404, err);
         return;
       }
-      console.log(Useration);
-      sendJsonResponse(res, 200, Useration);
-    });
-  
+      //console.log(users);
+      sendJsonResponse(res, 200, users);
+    });  
   return;
-
 }
 
 
-//Function for add User without routes
-module.exports.createUser = function(req, res){
-	User.create({
-    name: req.body.name, 
-		email: req.body.email, 
-		avatar: req.body.avatar,
-    image: req.body.image,
-		nick: req.body.nick,
-    password: req.body.password,
-    description: req.body.description
-	},function(err, user){
-		if (err){
-      sendJsonResponse(res, 400, err);
-    }else{
-      sendJsonResponse(res, 201, user);
-    }
-	});
-};
-
-//FUnciton to update a User
-module.exports.updateUser = function (req, res) { 
-  if (!req.params.userid) {
-    sendJsonResponse(res, 404, {
-      "message" : "Not found, userid is required"});
-    return;
-  }
-  User
-    .findById(req.params.userid)
-    .select('-routes')
-    .exec(
-      function(err, user){
-        if (!user) {
-          sendJsonResponse(res, 404, {
-            "message" : "userid not found"
-          });
-          return;
-        }
-        else if (err) {
-          sendJsonResponse(res, 200, err);
-          return;
-        }
-        user.name = req.body.name;
-        user.avatar = req.body.avatar;
-        user.nick = req.body.nick;
-        user.password = req.body.password;
-        user.description = req.body.description;
-        user.save(function(err, user){
-          if (err) {
-            sendJsonResponse(res, 404, err);
-          }
-          else{
-            sendJsonResponse(res, 200, user);
-          }
-        });       
-      }
-  );
-};
-
-//Function to get a specified user
+//Get a specific user
 module.exports.getUser = function (req, res) { 
   if (req.params && req.params.userid) {
     User 
@@ -128,12 +72,73 @@ module.exports.getUser = function (req, res) {
     }); 
   } else {
     sendJsonResponse(res, 404, {
-      "message": "No userid in request"
+      "message": "userid is required"
     });
   } 
 };
 
-//Function to delete a specified user
+//Add new user without routes
+module.exports.createUser = function(req, res){
+	User.create({
+    name: req.body.name, 
+		email: req.body.email, 
+		avatar: req.body.avatar,
+    image: req.body.image,
+		nick: req.body.nick,
+    password: req.body.password,
+    description: req.body.description
+	},function(err, user){
+		if (err){
+      sendJsonResponse(res, 400, err);
+    }else{
+      sendJsonResponse(res, 201, user);
+    }
+	});
+};
+
+//Update a specific user
+module.exports.updateUser = function (req, res) { 
+  if (!req.params || !req.params.userid) {
+    sendJsonResponse(res, 404, {
+      "message" : "userid is required"});
+    return;
+  }
+  User
+    .findById(req.params.userid)
+    .select('-routes')
+    .exec(
+      function(err, user){
+        if (!user) {
+          sendJsonResponse(res, 404, {
+            "message" : "userid not found"
+          });
+          return;
+        }
+        else if (err) {
+          sendJsonResponse(res, 200, err);
+          return;
+        }
+        user.name = req.body.name;
+        user.email = req.body.email;
+        // user.avatar = req.body.avatar;
+        // user.image = req.body.image;
+        user.nick = req.body.nick;
+        user.password = req.body.password;
+        user.description = req.body.description;
+        user.save(function(err, user){
+          if (err) {
+            sendJsonResponse(res, 404, err);
+          }
+          else{
+            sendJsonResponse(res, 200, user);
+          }
+        });       
+      }
+  );
+};
+
+
+//Delete a specific user
 module.exports.deleteUser = function (req, res) { 
   var userid = req.params.userid;
   if (userid) {
@@ -146,12 +151,13 @@ module.exports.deleteUser = function (req, res) {
             return;
           }
           sendJsonResponse(res, 204, null);
+          deleteRoutes(userid);
         }
     );
   }
   else{
     sendJsonResponse(res, 404, {
-      "message": "No userid"
+      "message": "userid is required"
     });
   }
 };
