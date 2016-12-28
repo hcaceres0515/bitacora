@@ -169,7 +169,10 @@ html(lang='en')
       autocomplete.addListener('place_changed', function() {
       var place = autocomplete.getPlace();
       console.log(place);
-      window.location.href = "/mapSearch";
+      var lat = place.geometry.location.lat();
+      var lng = place.geometry.location.lng();
+      var formatted_address = place.formatted_address;
+      window.location.href = "/mapSearch/"+lat+"/"+lng+"/"+formatted_address;
       });        
       }
     script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCHOdauoh_16stWPxM67AJZpWjp3UWA2rI&libraries=places&callback=initialize', async='', defer='')

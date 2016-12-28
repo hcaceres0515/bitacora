@@ -7,6 +7,46 @@ var sendJsonResponse = function(res, status, content) {
   res.json(content);
 };
 
+
+module.exports.getRoutes = function(req, res){
+  
+  Rou
+    .find()
+    .exec(function(err, route){
+      if (!route) {
+        sendJsonResponse(res, 404, {
+          "message": "route not found"
+        });
+      return;
+    } else if (err) {
+      sendJsonResponse(res, 404, err);
+      return;
+    }
+    sendJsonResponse(res, 200, route);
+    });  
+}
+
+module.exports.getRoute = function(req, res){
+
+  if(req.params.userid){
+    Rou
+      .findById(req.params.userid)
+      .exec(function(err, route){
+        if (!route) {
+          sendJsonResponse(res, 404, {
+            "message": "route not found"
+          });
+        return;
+      } else if (err) {
+        sendJsonResponse(res, 404, err);
+        return;
+      }
+      sendJsonResponse(res, 200, route);
+      });
+  }
+
+}
+
 module.exports.createRoute = function(req, res) {
   
   Rou.create({

@@ -2,8 +2,10 @@ var mongoose = require('mongoose');
 
 var imageSchema = new mongoose.Schema({
     description: String,
-    lon: { type: Number, required : true},
-    lat: { type: Number, required : true},
+    coords: { 
+        type: [Number], // Always store coordinates longitude, latitude order.
+        index: '2dsphere'
+    },
     image: String
 });
 
@@ -24,8 +26,10 @@ var reviewSchema = new mongoose.Schema({
 
 var locationSchema = new mongoose.Schema({    
     name: String,
-    lon: { type: Number, required : true},
-    lat: { type: Number, required : true},
+    coords: {
+        type: [Number], // Always store coordinates longitude, latitude order.
+        index: '2dsphere'
+    },
     description: String,
     createdOn: {
         type: Date,
@@ -39,6 +43,7 @@ var routeSchema = new mongoose.Schema({
         required: true
     },
     description: String,
+    user: { type: String, required : true},
     rating: {
         type: Number,
         "default": 0,
@@ -50,7 +55,11 @@ var routeSchema = new mongoose.Schema({
         type: Date,
         "default": Date.now
     }, 
-    location: [locationSchema],
+    coordsFinal: {
+        type: [Number], // Always store coordinates longitude, latitude order.
+        index: '2dsphere'
+    },
+    locations: [locationSchema],
     images: [imageSchema],
     reviews: [reviewSchema]
 });

@@ -10,9 +10,11 @@ var ctrlRegLog = require('../controllers/reglog');
 
 /*Locations pages*/
 
-router.get('/', ctrlPages.home);
+router.get('/', ctrlPages.angularApp);
+//router.get('/', ctrlPages.home);
 router.get('/map', ctrlPages.map);
-router.get('/mapSearch', ctrlPages.mapSearch);
+router.get('/mapSearch/:lat/:lng/:address', ctrlPages.mapSearch);
+router.get('/route', ctrlPages.infoRoute);
 
 
 /* Other pages */

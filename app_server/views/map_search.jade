@@ -1,8 +1,24 @@
 doctype html
-html
+html(lang='en')
   head
-    meta(name='viewport', content='initial-scale=1.0, user-scalable=no')
     meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    // Bootstrap Core CSS
+    link(href='/bootstrap/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+    // Custom Fonts
+    link(href='http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css', rel='stylesheet', type='text/css')
+    link(href='https://fonts.googleapis.com/css?family=Montserrat:400,700', rel='stylesheet', type='text/css')
+    link(href='https://fonts.googleapis.com/css?family=Kaushan+Script', rel='stylesheet', type='text/css')
+    link(href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic', rel='stylesheet', type='text/css')
+    link(href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700', rel='stylesheet', type='text/css')
+    // Theme CSS
+    link(href='/css/agency.css', rel='stylesheet')
+    link(rel='stylesheet', href='/css/template.css')
+    link(rel='stylesheet', href='/css/bitacora.css')
+    link(rel='stylesheet', href='/css/sidebar.css')
     style.
       html, body {
       height: 100%;
@@ -11,6 +27,7 @@ html
       }
       #map {
       height: 100%;
+      top  :100px;
       }
       .controls {
       margin-top: 10px;
@@ -26,12 +43,16 @@ html
       background-color: #fff;
       font-family: Roboto;
       font-size: 15px;
-      font-weight: 300;
-      margin-left: 270px;
+      margin-left: 360px;
       padding: 0 11px 0 13px;
       text-overflow: ellipsis;
       width: 600px;
       height: 50px;
+      position: absolute;
+      z-index: 1000;
+      top  :130px;
+      border: 1px solid #333;
+      color:black;
       }
       #pac-input:focus {
       border-color: #4d90fe;
@@ -49,73 +70,40 @@ html
       font-size: 13px;
       font-weight: 300;
       }
-    title Places Searchbox
+    title #{title}
     style.
       #target {
       width: 345px;
       }
-  body    
+  body#page-top.index
+    // Navigation
+    nav#mainNav.navbar.navbar-default.navbar-custom.navbar-fixed-top
+      .container
+        // Brand and toggle get grouped for better mobile display
+        .navbar-header.page-scroll
+          button.navbar-toggle(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
+            span.sr-only Toggle navigation
+            |  Menu 
+            i.fa.fa-bars
+          a.navbar-brand.page-scroll(href='#page-top') Bitacora
+        // Collect the nav links, forms, and other content for toggling
+        #bs-example-navbar-collapse-1.collapse.navbar-collapse
+          ul.nav.navbar-nav.navbar-right
+            li.hidden
+              a(href='#page-top')            
+            li
+              a.page-scroll(href='#', data-toggle='modal', data-target='#register') Register
+            li
+              a.page-scroll(href='#', data-toggle='modal', data-target='#signin') Login
+        // /.navbar-collapse
+      // /.container-fluid
+    // Header   
     input#pac-input.controls(type='text', placeholder='Search a destination location')
     #map
+    script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js')     
     script.
-      // This example adds a search box to a map, using the Google Place Autocomplete
-      // feature. People can enter geographical searches. The search box will return a
-      // pick list containing a mix of places and predicted search terms.
-      function initAutocomplete() {
-      var map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: -33.8688, lng: 151.2195},
-      zoom: 13,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-      });
-      // Create the search box and link it to the UI element.
-      var input = document.getElementById('pac-input');
-      var searchBox = new google.maps.places.SearchBox(input);
-      map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);     
-      // Bias the SearchBox results towards current map's viewport.
-      map.addListener('bounds_changed', function() {
-      searchBox.setBounds(map.getBounds());
-      });
-      var markers = [];
-      // [START region_getplaces]
-      // Listen for the event fired when the user selects a prediction and retrieve
-      // more details for that place.
-      searchBox.addListener('places_changed', function() {
-      var places = searchBox.getPlaces();
-      console.log(places);
-      if (places.length == 0) {
-      return;
-      }
-      // Clear out the old markers.
-      markers.forEach(function(marker) {
-      marker.setMap(null);
-      });
-      markers = [];
-      // For each place, get the icon, name and location.
-      var bounds = new google.maps.LatLngBounds();
-      places.forEach(function(place) {
-      var icon = {
-      url: place.icon,
-      size: new google.maps.Size(71, 71),
-      origin: new google.maps.Point(0, 0),
-      anchor: new google.maps.Point(17, 34),
-      scaledSize: new google.maps.Size(25, 25)
-      };
-      // Create a marker for each place.
-      markers.push(new google.maps.Marker({
-      map: map,
-      icon: icon,
-      title: place.name,
-      position: place.geometry.location
-      }));
-      if (place.geometry.viewport) {
-      // Only geocodes have viewport.
-      bounds.union(place.geometry.viewport);
-      } else {
-      bounds.extend(place.geometry.location);
-      }
-      });
-      map.fitBounds(bounds);
-      });
-      // [END region_getplaces]
-      }
-    script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCHOdauoh_16stWPxM67AJZpWjp3UWA2rI&libraries=places&callback=initAutocomplete', async='', defer='')
+     var SEARCH_LNG = #{lon};
+     var SEARCH_LAT = #{lat};
+     var SEARCH_ADDRESS = "#{address}";
+    script(src='/js/map_search.js')
+    script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCHOdauoh_16stWPxM67AJZpWjp3UWA2rI&libraries=places&callback=initMap', async='', defer='')

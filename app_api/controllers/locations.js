@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
-var Loc = mongoose.model('User');
+var User = mongoose.model('User');
+var Loc = mongoose.model('Route');
 
 var sendJsonResponse = function(res, status, content) {
   res.status(status);
@@ -8,7 +9,7 @@ var sendJsonResponse = function(res, status, content) {
 
 module.exports.locationsCreate = function(req, res) {
   if (req.params.userid) {
-    Loc
+    User
       .findById(req.params.userid)
       .select('routes')
       .exec(
@@ -98,7 +99,7 @@ module.exports.deleteLocation = function (req, res) {
     });
     return;
   }
-  Loc.update(
+  User.update(
     { 
       "_id": req.params.userid 
     },
@@ -124,4 +125,63 @@ module.exports.deleteLocation = function (req, res) {
         }
     }
   );
+};
+
+
+//From get distance
+
+
+var theEarth = (function() {
+  var earthRadius = 6371; // km, miles is 3959
+
+  var getDistanceFromRads = function(rads) {
+    return parseFloat(rads * earthRadius);
+  };
+
+  var getRadsFromDistance = function(distance) {
+    return parseFloat(distance / earthRadius);
+  };
+
+  return {
+    getDistanceFromRads: getDistanceFromRads,
+    getRadsFromDistance: getRadsFromDistance
+  };
+})();
+
+
+/* GET list of Userations */
+module.exports.locationsListByDistance = function(req, res) { 
+
+
+  var lng = -71.5408935;
+    var lat = -16.4065013;
+    var maxDistance = 100;
+
+    var point = {
+    type: "Point",
+    coordinates: [lng, lat]
+  };
+  var geoOptions = {
+    spherical: true,
+    maxDistance: theEarth.getRadsFromDistance(maxDistance),
+    num: 10
+  };
+
+  //find({location: {$not: {$size: 0}}})
+  //.select({ "location": { "$slice": -1 }})       
+  Loc.find({ location: { $exists: true, $ne: [] } })
+    .select({ "location": { "$slice": -1 }})
+    .exec(
+        function(err, routes) {
+           if (err) {
+            sendJsonResponse(res, 400, err);
+          } else {            
+            sendJsonResponse(res, 200, routes);
+          }
+          
+        }
+    );  
+
+
+    
 };
