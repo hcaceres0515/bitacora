@@ -38,7 +38,7 @@ $.getScript( "https://maps.googleapis.com/maps/api/js?key=AIzaSyCHOdauoh_16stWPx
   console.log( jqxhr.status ); // 200
   console.log( "Google Maps - Load was performed." );
 });*/
-
+/*
     function loadScript(src,callback){
   
     var script = document.createElement("script");
@@ -50,3 +50,4 @@ $.getScript( "https://maps.googleapis.com/maps/api/js?key=AIzaSyCHOdauoh_16stWPx
   
   
   loadScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyCHOdauoh_16stWPxM67AJZpWjp3UWA2rI&libraries=places&callback=initialize');
+*/
