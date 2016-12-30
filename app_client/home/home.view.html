@@ -1,0 +1,81 @@
+<navigation></navigation>
+<!-- Header -->
+<header>
+    <div class="container">
+        <div class="intro-text">
+            <div class="intro-lead-in">Welcome To Our Bitacora!</div>
+            <div class="intro-heading">
+                <input id="searchTextField" type="text" class="search-input-google" placeholder="Ingresa una ubicación" autocomplete="off">
+            </div>
+            <a href="#services" class="page-scroll btn btn-xl">Search</a></div>
+    </div>
+</header>
+
+<!-- Services Section -->
+<section id="services">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading">Services</h2>
+                <h3 class="section-subheading text-muted">The best tips for travelers.</h3>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-4">
+                <span class="fa-stack fa-4x">
+                    <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                    <i class="fa fa-map fa-2 fa-stack-1x fa-inverse"></i>
+                </span>
+                <h4 class="service-heading">Share your travels</h4>
+                <p class="text-muted">You can post your advices, routes and locations.</p>
+            </div>
+            <div class="col-md-4">
+                <span class="fa-stack fa-4x">
+                    <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                    <i class="fa fa-camera fa-stack-1x fa-inverse"></i>
+                </span>
+                <h4 class="service-heading">Share your photos</h4>
+                <p class="text-muted">You can create your road with all pictures of travel.</p>
+            </div>
+            <div class="col-md-4">
+                <span class="fa-stack fa-4x">
+                    <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                    <i class="fa fa-users fa-stack-1x fa-inverse"></i>
+                </span>
+                <h4 class="service-heading">Meet friends</h4>
+                <p class="text-muted">Other travelers can contact you and share the experiences and meet other places.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Team Section -->
+<section id="team" class="bg-light-gray">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading">Our Amazing Team</h2>
+                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-sm-4" ng-repeat="user in users">
+                <div class="team-member">
+                    <img src="{{user.image}}" alt="" width="200" height="200" class="img-circle">
+                    <h4>{{user.name}}</h4>
+                    <p class="text-muted"> {{user.description}} </p>
+                </div>
+            </div>                       
+            
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 text-center">
+                <p class="large text-muted">Our users shared their experiences and places visited for other travelers.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+ <footer-generic>   </footer-generic>

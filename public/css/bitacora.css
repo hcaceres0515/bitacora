@@ -1,0 +1,92 @@
+/**html {
+  background:#505D6E url(../img/banner_03.jpg) no-repeat center center fixed;
+  min-height:100%;
+  -webkit-background-size: cover;
+     -moz-background-size: cover;
+       -o-background-size: cover;
+          background-size: cover;
+}
+*/
+body {
+  background:transparent;
+  min-height:100%;  
+  -webkit-font-smoothing: antialiased;
+  -webkit-overflow-scrolling: touch;
+  line-height: 1.5em;
+  font-size:14px;
+  font-family: Helvetica, Arial, sans-serif;
+  color:#fff;
+  color:rgba(255,255,255,.8); 
+  font-weight: normal;
+    padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.login {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+
+}
+
+#sha{
+	max-width: 340px;
+    -webkit-box-shadow: 0px 0px 18px 0px rgba(48, 50, 50, 0.48);
+    -moz-box-shadow:    0px 0px 18px 0px rgba(48, 50, 50, 0.48);
+    box-shadow:         0px 0px 18px 0px rgba(48, 50, 50, 0.48);
+    border-radius: 6%;
+}
+
+#content {
+    -webkit-box-shadow: 0px 0px 18px 0px rgba(48, 50, 50, 0.48);
+    -moz-box-shadow:    0px 0px 18px 0px rgba(48, 50, 50, 0.48);
+    box-shadow:         0px 0px 18px 0px rgba(48, 50, 50, 0.48);
+    border-radius: 6%;
+}
+
+#avatar{
+  width: 96px;
+  height: 96px;
+  margin: 0px auto 10px;
+  display: block;
+  border-radius: 50%;
+} 
+
+
+.modal-title {
+    color: #000;
+    text-align: center;
+}
+
+.checkbox {
+  text-align: center;
+  color: #000;
+}
+
+#container-principal {
+  padding: 5% 0;
+}
+#container-secundario {
+  padding: 5% 0;
+}
+
+
+.title,
+.subtitle { 
+  font-family: 'Wire One', Helvetica, Arial, sans-serif;
+  font-weight:normal;
+  font-size:7em;
+  margin-bottom:15px; 
+  color:#FDF9F4; 
+  line-height:1em;
+}
+.subtitle { 
+  line-height:.9em;
+  font-size:5.5em;
+  margin-top:0;
+  margin-bottom:40px; 
+}
+
+.theme-invert .title, .theme-invert .subtitle, .theme-invert .tagline {
+    color: #ffffff;
+}
