@@ -15,11 +15,17 @@ function bitacoraData($http){
 	}
     
     var searchRoutesByDistance = function(lng, lat){
-    	return $http.get('/api/search_routes/'+lng+"/"+lat);
+    	return $http.get('/api/search_routes/'+lng+'/'+lat);
     }
+
+    var getUserById = function(userId){
+    	return $http.get('/api/users/'+userId);
+    }
+
 	return {
 		getUsers : getUsers,
-		routeById : routeById.
+		getUserById : getUserById,
+		routeById : routeById,
 		searchRoutesByDistance : searchRoutesByDistance
 	};
 }

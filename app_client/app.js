@@ -16,6 +16,10 @@ function config($routeProvider, $locationProvider){
 			controller: 'searchCtrl'
 			//controllerAs: 'vm'
 		})
+		.when('/route/:routeid',{
+			templateUrl : '/route/route.view.html',
+			controller : 'routeCtrl'
+		})
 		.otherwise({redirectTo: '/'});
 
 		$locationProvider.html5Mode({

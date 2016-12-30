@@ -49,7 +49,7 @@ module.exports.searchRoutesByDistance = function(req, res) {
   var lng = parseFloat(req.params.lng);
   var lat = parseFloat(req.params.lat);
   console.log(req.params);
-  var maxDistance = 100;
+  var maxDistance = 500;
   maxDistance /= 6371;
   var coords = [];
     coords[0] = lng;
