@@ -9,12 +9,12 @@ function config($routeProvider, $locationProvider){
 			controller : 'homeCtrl'
 		})
 		.when('/login',{
-			templateUrl: 'login/login.view.html' 
+			templateUrl: '/login/login.view.html' 
 		})
-		.when('/search/:routeid',{
+		.when('/search/:lng/:lat',{
 			templateUrl: '/search/search.view.html',
-			controller: 'searchCtrl',
-			controllerAs: 'vm'
+			controller: 'searchCtrl'
+			//controllerAs: 'vm'
 		})
 		.otherwise({redirectTo: '/'});
 
@@ -27,3 +27,10 @@ function config($routeProvider, $locationProvider){
 angular
 	.module('bitacora')
 	.config(['$routeProvider', '$locationProvider', config]);
+
+$.getScript( "https://maps.googleapis.com/maps/api/js?key=AIzaSyCHOdauoh_16stWPxM67AJZpWjp3UWA2rI&libraries=places&callback=initialize", function( data, textStatus, jqxhr ) {
+  //console.log( data ); // Data returned
+  console.log( textStatus ); // Success
+  console.log( jqxhr.status ); // 200
+  console.log( "Google Maps - Load was performed." );
+});

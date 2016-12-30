@@ -13,9 +13,13 @@ function bitacoraData($http){
 	var routeById = function (routeId){
 		return $http.get('/api/user/route/'+routeId);
 	}
-
+    
+    var searchRoutesByDistance = function(lng, lat){
+    	return $http.get('/api/search_routes/'+lng+"/"+lat);
+    }
 	return {
 		getUsers : getUsers,
-		routeById : routeById
+		routeById : routeById.
+		searchRoutesByDistance : searchRoutesByDistance
 	};
 }

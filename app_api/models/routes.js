@@ -57,7 +57,7 @@ var routeSchema = new mongoose.Schema({
     }, 
     coordsFinal: {
         type: [Number], // Always store coordinates longitude, latitude order.
-        index: '2dsphere'
+        index: '2d'
     },
     locations: [locationSchema],
     images: [imageSchema],

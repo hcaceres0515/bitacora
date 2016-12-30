@@ -7,6 +7,22 @@ var sendJsonResponse = function(res, status, content) {
   res.json(content);
 };
 
+var theEarth = (function() {
+  var earthRadius = 6371; // km, miles is 3959
+
+  var getDistanceFromRads = function(rads) {
+    return parseFloat(rads * earthRadius);
+  };
+
+  var getRadsFromDistance = function(distance) {
+    return parseFloat(distance / earthRadius);
+  };
+
+  return {
+    getDistanceFromRads: getDistanceFromRads,
+    getRadsFromDistance: getRadsFromDistance
+  };
+})();
 
 module.exports.getRoutes = function(req, res){
   
@@ -25,6 +41,39 @@ module.exports.getRoutes = function(req, res){
     sendJsonResponse(res, 200, route);
     });  
 }
+
+
+/* GET list of locations */
+module.exports.searchRoutesByDistance = function(req, res) {
+  
+  var lng = parseFloat(req.params.lng);
+  var lat = parseFloat(req.params.lat);
+  console.log(req.params);
+  var maxDistance = 100;
+  maxDistance /= 6371;
+  var coords = [];
+    coords[0] = lng;
+    coords[1] = lat;
+  
+  Rou.find({
+      coordsFinal: {
+        $near: coords,
+        $maxDistance: maxDistance
+      }
+    }).exec(function(err, routes){
+      if (!routes) {
+        sendJsonResponse(res, 404, {
+          "message": "route not found"
+        });
+      return;
+    } else if (err) {
+      sendJsonResponse(res, 404, err);
+      return;
+    }
+    sendJsonResponse(res, 200, routes);
+    });
+
+};
 
 module.exports.getRoute = function(req, res){
 

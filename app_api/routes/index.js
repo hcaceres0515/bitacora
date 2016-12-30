@@ -16,6 +16,7 @@ router.delete('/users/:userid', ctrlUsers.deleteUser);
 
 /*router.post('/route', ctrlRoutes.createRoute);*/
 router.get('/routes', ctrlRoutes.getRoutes);
+router.get('/search_routes/:lng/:lat', ctrlRoutes.searchRoutesByDistance);
 router.get('/user/route/:userid', ctrlRoutes.getRoute);
 router.post('/user/:userid/route', ctrlRoutes.createUserRoute);
 router.put('/users/:userid/routes/:routeid', ctrlRoutes.updateRoute);
