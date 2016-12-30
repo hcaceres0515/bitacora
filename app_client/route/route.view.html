@@ -96,18 +96,141 @@
 .project-content {
     padding:0 20px 10px;
 }
+
+.hide-bullets {
+list-style:none;
+margin-left: -40px;
+margin-top:20px;
+}
     </style>
      
 
     <input id="pac-input" type="text" placeholder="Search a destination location" class="controls">
     <div id="map"></div>
 
-    
+    <hr>
+
+    <div class="container">
+        <div id="main_area">
+                <!-- Slider -->
+                <div class="row">
+                    <div class="col-xs-12" id="slider">
+                        <!-- Top part of the slider -->
+                        <div class="row">
+                            <div class="col-sm-8" id="carousel-bounding-box">
+                                <div class="carousel slide" id="myCarousel">
+                                    <!-- Carousel items -->
+                                    <div class="carousel-inner">
+                                        <div class="active item" data-slide-number="0">
+                                        <img src="http://www.infoarequipa.com/wp-content/uploads/2010/11/sogay_arequipa.jpg"></div>
+
+                                        <div class="item" data-slide-number="1">
+                                        <img src="https://media-cdn.tripadvisor.com/media/photo-s/04/b4/83/fa/sogay-waterfall.jpg"></div>
+
+                                        <div class="item" data-slide-number="2">
+                                        <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTCDLCW7tI_peWdkl6Kt1r-39rLQx_d4iqCWnmzvc1umkKJhe41"></div>
+
+                                        <div class="item" data-slide-number="3">
+                                        <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTvlUUSYwbhH5QF-eIKxBOEnw0PFWztSxq7OBr2dxVkqrfw0THQ"></div>
+
+                                        <div class="item" data-slide-number="4">
+                                        <img src="https://media-cdn.tripadvisor.com/media/photo-s/09/15/41/7f/sogay-waterfall.jpg"></div>
+
+                                       
+                                    </div><!-- Carousel nav -->
+                                                                    
+                                  </div>
+                            </div>
+
+                            <div class="col-sm-4" id="carousel-text"></div>
+
+                            <div id="slide-content" style="display: none;">
+                                <div id="slide-content-0">
+                                    <h2>Primera foto</h2>
+                                    <p>Recomiendo este lugar</p>
+                                </div>
+
+                                <div id="slide-content-1">
+                                    <<h2>Primera foto</h2>
+                                    <p>Recomiendo este lugar</p>
+                                </div>
+
+                                <div id="slide-content-2">
+                                    <h2>Primera foto</h2>
+                                    <p>Recomiendo este lugar</p>
+                                </div>
+
+                                <div id="slide-content-3">
+                                    <h2>Primera foto</h2>
+                                    <p>Recomiendo este lugar</p>
+                                </div>
+
+                                <div id="slide-content-4">
+                                    <h2>Cuarta foto</h2>
+                                    <p>Recomiendo la plaza</p>
+                                </div>
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div><!--/Slider-->
+
+                <div class="row hidden-xs" id="slider-thumbs">
+                        <!-- Bottom switcher of slider -->
+                        <ul class="hide-bullets">
+                            <li class="col-sm-2">
+                                <a class="thumbnail" id="carousel-selector-0"><img src="http://www.infoarequipa.com/wp-content/uploads/2010/11/sogay_arequipa.jpg"></a>
+                            </li>
+
+                            <li class="col-sm-2">
+                                <a class="thumbnail" id="carousel-selector-1"><img src="https://media-cdn.tripadvisor.com/media/photo-s/04/b4/83/fa/sogay-waterfall.jpg"></a>
+                            </li>
+
+                            <li class="col-sm-2">
+                                <a class="thumbnail" id="carousel-selector-2"><img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTCDLCW7tI_peWdkl6Kt1r-39rLQx_d4iqCWnmzvc1umkKJhe41"></a>
+                            </li>
+
+                            <li class="col-sm-2">
+                                <a class="thumbnail" id="carousel-selector-3"><img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTvlUUSYwbhH5QF-eIKxBOEnw0PFWztSxq7OBr2dxVkqrfw0THQ"></a>
+                            </li>
+
+                            <li class="col-sm-2">
+                                <a class="thumbnail" id="carousel-selector-4"><img src="https://media-cdn.tripadvisor.com/media/photo-s/09/15/41/7f/sogay-waterfall.jpg"></a>
+                            </li>
+                            
+                        </ul>                 
+                </div>
+        </div>
+</div>
 
 <footer-generic>   </footer-generic>
 
 <script type="text/javascript">
     
+   jQuery(document).ready(function($) {
+ 
+        $('#myCarousel').carousel({
+                interval: 5000
+        });
+ 
+        $('#carousel-text').html($('#slide-content-0').html());
+ 
+        //Handles the carousel thumbnails
+       $('[id^=carousel-selector-]').click( function(){
+            var id = this.id.substr(this.id.lastIndexOf("-") + 1);
+            var id = parseInt(id);
+            $('#myCarousel').carousel(id);
+        });
+ 
+ 
+        // When the carousel slides, auto update the text
+        $('#myCarousel').on('slid.bs.carousel', function (e) {
+                 var id = $('.item.active').data('slide-number');
+                $('#carousel-text').html($('#slide-content-'+id).html());
+        });
+});
+
     var currentUrl = window.location.pathname.split("/");
 
     var ROUTE_ID = currentUrl[2];
