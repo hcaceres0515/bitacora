@@ -1,0 +1,380 @@
+<navigation></navigation>
+
+<br><br><br><br><br>
+
+
+<style>
+      html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      }
+      #map {
+      height: 500px;
+      }
+      .controls {
+      margin-top: 10px;
+      border: 1px solid transparent;
+      border-radius: 2px 0 0 2px;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      height: 32px;
+      outline: none;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      }
+      #pac-input {
+      background-color: #fff;
+      font-family: Roboto;
+      font-size: 15px;
+      margin-left: 360px;
+      padding: 0 11px 0 13px;
+      text-overflow: ellipsis;
+      width: 600px;
+      height: 50px;
+      position: absolute;
+      z-index: 1000;
+      top  :130px;
+      border: 1px solid #333;
+      color:black;
+      }
+      #pac-input:focus {
+      border-color: #4d90fe;
+      }
+      .pac-container {
+      font-family: Roboto;
+      }
+      #type-selector {
+      color: #fff;
+      background-color: #4d90fe;
+      padding: 5px 11px 0px 11px;
+      }
+      #type-selector label {
+      font-family: Roboto;
+      font-size: 13px;
+      font-weight: 300;
+      }
+      #target {
+      width: 345px;
+      }
+      .shape{    
+    border-style: solid; border-width: 0 70px 40px 0; float:right; height: 0px; width: 0px;
+    -ms-transform:rotate(360deg); /* IE 9 */
+    -o-transform: rotate(360deg);  /* Opera 10.5 */
+    -webkit-transform:rotate(360deg); /* Safari and Chrome */
+    transform:rotate(360deg);
+}
+.shape-text{
+    color:#fff; font-size:12px; font-weight:bold; position:relative; right:-40px; top:2px; white-space: nowrap;
+    -ms-transform:rotate(30deg); /* IE 9 */
+    -o-transform: rotate(360deg);  /* Opera 10.5 */
+    -webkit-transform:rotate(30deg); /* Safari and Chrome */
+    transform:rotate(30deg);
+}
+.project {
+    min-height:300px;
+    height:auto;
+}
+.project{
+    background:#fff; border:1px solid #ddd; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); margin: 15px 0; overflow:hidden;
+}
+.project-radius{
+    border-radius:7px;
+}
+.project-success {  border-color: #5cb85c; }
+.project-success .shape{
+    border-color: transparent #5cb85c transparent transparent;
+    border-color: rgba(255,255,255,0) #5cb85c rgba(255,255,255,0) rgba(255,255,255,0);
+}
+.project-content {
+    padding:0 20px 10px;
+}
+.hide-bullets {
+list-style:none;
+margin-left: -40px;
+margin-top:20px;
+}
+    </style>
+     
+
+    <input id="pac-input" type="text" placeholder="Search a destination location" class="controls">
+    <div id="map"></div>
+
+    <hr>
+
+    <div class="container">
+        <div id="main_area">
+                <!-- Slider -->
+                <div class="row">
+                    <div class="col-xs-12" id="slider">
+                        <!-- Top part of the slider -->
+                        <div class="row">
+                            <div class="col-sm-8" id="carousel-bounding-box">
+                                <div class="carousel slide" id="myCarousel">
+                                    <!-- Carousel items -->
+                                    <div class="carousel-inner">
+                                        <div class="active item" data-slide-number="0">
+                                        <img src="http://www.infoarequipa.com/wp-content/uploads/2010/11/sogay_arequipa.jpg"></div>
+
+                                        <div class="item" data-slide-number="1">
+                                        <img src="https://media-cdn.tripadvisor.com/media/photo-s/04/b4/83/fa/sogay-waterfall.jpg"></div>
+
+                                        <div class="item" data-slide-number="2">
+                                        <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTCDLCW7tI_peWdkl6Kt1r-39rLQx_d4iqCWnmzvc1umkKJhe41"></div>
+
+                                        <div class="item" data-slide-number="3">
+                                        <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTvlUUSYwbhH5QF-eIKxBOEnw0PFWztSxq7OBr2dxVkqrfw0THQ"></div>
+
+                                        <div class="item" data-slide-number="4">
+                                        <img src="https://media-cdn.tripadvisor.com/media/photo-s/09/15/41/7f/sogay-waterfall.jpg"></div>
+
+                                       
+                                    </div><!-- Carousel nav -->
+                                                                    
+                                  </div>
+                            </div>
+
+                            <div class="col-sm-4" id="carousel-text"></div>
+
+                            <div id="slide-content" style="display: none;">
+                                <div id="slide-content-0">
+                                    <h2>Primera foto</h2>
+                                    <p>Recomiendo este lugar</p>
+                                </div>
+
+                                <div id="slide-content-1">
+                                    <<h2>Primera foto</h2>
+                                    <p>Recomiendo este lugar</p>
+                                </div>
+
+                                <div id="slide-content-2">
+                                    <h2>Primera foto</h2>
+                                    <p>Recomiendo este lugar</p>
+                                </div>
+
+                                <div id="slide-content-3">
+                                    <h2>Primera foto</h2>
+                                    <p>Recomiendo este lugar</p>
+                                </div>
+
+                                <div id="slide-content-4">
+                                    <h2>Cuarta foto</h2>
+                                    <p>Recomiendo la plaza</p>
+                                </div>
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div><!--/Slider-->
+
+                <div class="row hidden-xs" id="slider-thumbs">
+                        <!-- Bottom switcher of slider -->
+                        <ul class="hide-bullets">
+                            <li class="col-sm-2">
+                                <a class="thumbnail" id="carousel-selector-0"><img src="http://www.infoarequipa.com/wp-content/uploads/2010/11/sogay_arequipa.jpg"></a>
+                            </li>
+
+                            <li class="col-sm-2">
+                                <a class="thumbnail" id="carousel-selector-1"><img src="https://media-cdn.tripadvisor.com/media/photo-s/04/b4/83/fa/sogay-waterfall.jpg"></a>
+                            </li>
+
+                            <li class="col-sm-2">
+                                <a class="thumbnail" id="carousel-selector-2"><img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTCDLCW7tI_peWdkl6Kt1r-39rLQx_d4iqCWnmzvc1umkKJhe41"></a>
+                            </li>
+
+                            <li class="col-sm-2">
+                                <a class="thumbnail" id="carousel-selector-3"><img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTvlUUSYwbhH5QF-eIKxBOEnw0PFWztSxq7OBr2dxVkqrfw0THQ"></a>
+                            </li>
+
+                            <li class="col-sm-2">
+                                <a class="thumbnail" id="carousel-selector-4"><img src="https://media-cdn.tripadvisor.com/media/photo-s/09/15/41/7f/sogay-waterfall.jpg"></a>
+                            </li>
+                            
+                        </ul>                 
+                </div>
+        </div>
+</div>
+
+<footer-generic>   </footer-generic>
+
+<script type="text/javascript">
+    
+   jQuery(document).ready(function($) {
+ 
+        $('#myCarousel').carousel({
+                interval: 5000
+        });
+ 
+        $('#carousel-text').html($('#slide-content-0').html());
+ 
+        //Handles the carousel thumbnails
+       $('[id^=carousel-selector-]').click( function(){
+            var id = this.id.substr(this.id.lastIndexOf("-") + 1);
+            var id = parseInt(id);
+            $('#myCarousel').carousel(id);
+        });
+ 
+ 
+        // When the carousel slides, auto update the text
+        $('#myCarousel').on('slid.bs.carousel', function (e) {
+                 var id = $('.item.active').data('slide-number');
+                $('#carousel-text').html($('#slide-content-'+id).html());
+        });
+});
+    var currentUrl = window.location.pathname.split("/");
+    var ROUTE_ID = currentUrl[2];
+    var SEARCH_ADDRESS = "POINT";
+// Note: This example requires that you consent to location sharing when
+// prompted by your browser. If you see the error "The Geolocation service
+// failed.", it means you probably did not give permission for the browser to
+// locate you.
+//var BASE_URL = "http://localhost:3000/";
+var map;
+function initialize() {
+    
+      initializeSearch();
+      map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 11
+      });
+      //var infoWindow = new google.maps.InfoWindow({map: map});
+      
+      // Try HTML5 geolocation.
+      if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                  var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                  };
+            //infoWindow.setPosition(pos);
+            //infoWindow.setContent('<h6 style="color:black;">You are here</h6>');
+            //map.setCenter(pos);
+            
+            getUsers();
+      }, function() {
+            //handleLocationError(true, infoWindow, map.getCenter());
+      });
+      } else {
+      // Browser doesn't support Geolocation
+      //handleLocationError(false, infoWindow, map.getCenter());
+      }
+}
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+      infoWindow.setPosition(pos);
+      infoWindow.setContent(browserHasGeolocation ?
+            'Error: The Geolocation service failed.' :
+            'Error: Your browser doesn\'t support geolocation.');
+}
+var beaches = [];
+function getUsers(){
+      var locations = [];
+        
+        $.get('/api/user/route/'+ROUTE_ID,{},function(data){
+            
+            for (var i = 0; i < data.locations.length; i++) {
+                var location = {
+                                _id: data.locations[i]._id, 
+                                user: '', 
+                                name:data.locations[i].name, 
+                                avatar: "http://yohan.or.jp/templates/lighthouse_j3/images/gmap/gmap_marker.png", 
+                                lng: data.locations[i].coords[0], 
+                                lat: data.locations[i].coords[1], 
+                                description: data.locations[i].description
+                            }
+                locations.push(location);
+            }
+           var pos = {
+                  lat: locations[0].lat,
+                  lng: locations[0].lng
+                };
+                map.setCenter(pos);
+      beaches = locations;
+      console.log(locations);
+      setMarkers(map); 
+        })
+      var routes = [];
+      var j = 1;
+      
+      }
+// Data for the markers consisting of a name, a LatLng and a zIndex for the
+// order in which these markers should display on top of each other.
+/*var beaches = [
+['Bondi Beach', -33.890542, 151.274856, 4],
+['Coogee Beach', -33.923036, 151.259052, 5],
+['Cronulla Beach', -34.028249, 151.157507, 3],
+['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
+['Maroubra Beach', -33.950198, 151.259302, 1]
+];
+*/
+function setMarkers(map) {  
+      //create empty LatLngBounds object
+      var bounds = new google.maps.LatLngBounds();
+      var flightPlanCoordinates = [];
+      for (var i = 0; i < beaches.length; i++) {
+            var beach = beaches[i];
+            var contentString = '<div >'+
+            '<div >'+
+            '</div>'+
+            '<h3 style="color:black;">'+beach.name+'</h3>'+
+            '<div >'+
+            '<p style="color:black;">'+beach.description+'</p>'+           
+            '</div>'+
+            '</div>';
+            var infowindow = new google.maps.InfoWindow({
+                  content: contentString
+            });
+            var image = {
+                  url: beach.avatar,
+                  size: new google.maps.Size(64, 64),
+                  origin: new google.maps.Point(0, 0),
+                  anchor: new google.maps.Point(0, 0)
+            };
+            flightPlanCoordinates[i] = {lat: beach.lat, lng: beach.lng};
+            var marker = new google.maps.Marker({
+                  position: {lat: beach.lat, lng: beach.lng},
+                  map: map,
+                  icon: image,
+                  title: beach.name,
+                  routeId: beach._id,
+                  zIndex: i +1,
+                  infowindow: infowindow 
+            });
+            bounds.extend(marker.position);
+            marker.addListener('click', function() {
+                  //window.location.href = "/routes/"+lat;
+                  alert("/route/"+marker.routeId);
+            });   
+              google.maps.event.addListener(marker, 'mouseover', function() {
+                  this.infowindow.open(map, this);
+            });   
+             google.maps.event.addListener(marker, 'mouseout', function() {
+                  this.infowindow.close();
+            });
+      }
+      //now fit the map to the newly inclusive bounds
+            map.fitBounds(bounds);
+            var flightPath = new google.maps.Polyline({
+          path: flightPlanCoordinates,
+          geodesic: true,
+          //strokeColor: '#fed136',
+          strokeColor: '#333',
+          strokeOpacity: 1.0,
+          strokeWeight: 4
+        });
+        flightPath.setMap(map);
+}
+function initializeSearch() {
+      var input = document.getElementById('pac-input');
+      var autocomplete = new google.maps.places.Autocomplete(input);      
+      autocomplete.addListener('place_changed', function() {
+           var place = autocomplete.getPlace();
+      
+      var lat = place.geometry.location.lat();
+      var lng = place.geometry.location.lng();
+      console.log(lng + " / " + lat);
+      var formatted_address = place.formatted_address;
+            window.location.href = "/#/search/"+lng+"/"+lat;
+            //location.reload();
+            setTimeout(function(){window.location.reload(true);},100);
+      });        
+}
+</script>

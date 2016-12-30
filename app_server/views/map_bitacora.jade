@@ -1,0 +1,19 @@
+html
+  head
+    title Map bitacora
+    meta(name='viewport', content='initial-scale=1.0')
+    meta(charset='utf-8')    
+    style.
+      html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      }
+      #map {
+      height: 100%;
+      }
+  body
+    #map    
+    script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js')    
+    script(src='../js/custom_map.js')
+    script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCHOdauoh_16stWPxM67AJZpWjp3UWA2rI&callback=initMap', async='', defer='')
